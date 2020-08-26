@@ -1,0 +1,13 @@
+
+.makeStyles-root-4{
+    margin-left: 683px;
+  
+    box-shadow: 7px -8px 19px grey !important;
+    /* height: 400px; */
+    margin-top: -646px;
+    position: absolute;
+}
+
+.MuiButton-contained{
+    background-color:#ff8800;
+}

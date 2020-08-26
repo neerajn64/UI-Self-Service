@@ -1,0 +1,7 @@
+.MuiInputBase-input{
+    width: 200px !important;
+}
+
+.MuiSelect-filled.MuiSelect-filled{
+    text-align: left;
+}
