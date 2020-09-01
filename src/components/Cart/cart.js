@@ -16,6 +16,12 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import {BiCartAlt} from 'react-icons/bi'
 import { Link } from 'react-router-dom'
+import CssBaseline from '@material-ui/core/CssBaseline';
+import InputLabel from "@material-ui/core/InputLabel";
+
+import FormControl from "@material-ui/core/FormControl";
+
+import Container from '@material-ui/core/Container';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -212,7 +218,7 @@ export default function Cart() {
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>
-            <IconButton
+            {/* <IconButton
               aria-label="show more"
               aria-controls={mobileMenuId}
               aria-haspopup="true"
@@ -220,10 +226,26 @@ export default function Cart() {
               color="inherit"
             >
               <MoreIcon />
-            </IconButton>
+            </IconButton> */}
           </div>
         </Toolbar>
       </AppBar>
+      <div>
+      <React.Fragment>
+      <CssBaseline />
+      <Container maxWidth="sm">
+        <Typography component="div" style={{ backgroundColor: '#e6e6e6', height: '100vh',width:'1250px',marginLeft:'-346px'}}>
+            <text style={{fontSize:'150px',fontWeight:'bold',marginLeft:'-799px'}}>Cart</text>
+            <div>
+      <FormControl variant="filled" className={classes.formControl} style={{marginLeft:'-868px'}}>
+        <InputLabel id="demo-simple-select-filled-label">Location</InputLabel>
+        
+      </FormControl>
+    </div>
+        </Typography>
+      </Container>
+    </React.Fragment>
+      </div>
       {renderMobileMenu}
       {renderMenu}
     </div>

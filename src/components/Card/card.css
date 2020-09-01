@@ -11,3 +11,13 @@
 .MuiButton-contained{
     background-color:#ff8800;
 }
+
+.MuiOutlinedInput-input {
+    padding: 11.5px 14px !important;
+}
+
+.MuiCardHeader-root {
+    display: flex;
+    padding: 0px !important;
+    align-items: center;
+}

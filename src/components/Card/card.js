@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -13,6 +14,8 @@ import { Link } from 'react-router-dom'
 import loginImage from '../../utilities/images/login.jpg'
 import TextField from '@material-ui/core/TextField';
 import MenuAppBar from '../Header/header'
+
+import {ToastsContainer, ToastsStore, ToastsContainerPosition} from 'react-toasts';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,7 +51,10 @@ export default function RecipeReviewCard() {
   const [newpassword,setNewpassword] = useState('')
   const [firstName,setFirstName] = useState('')
   const [lastName,setLastName] = useState('')
-  const [phone,SetPhone] = useState('')
+  const [phone,setPhone] = useState('')
+  const [address,setAddress] = useState('')
+  const [zipcode,setZipcode] = useState('')
+  const [uid,setUid] = useState('')
 
 
  function setEmail (e) {
@@ -81,11 +87,47 @@ export default function RecipeReviewCard() {
  }
 
  const setNumber = (e) => {
-   SetPhone(e.target.value)
+   setPhone(e.target.value)
+ }
+
+ const setAdrs = (e) => {
+   setAddress(e.target.value)
+ }
+
+ const setZip = (e) => {
+   setZipcode(e.target.value)
  }
 
  const goBack = () => {
   setCreate(false)
+ }
+
+ const uploadData = () => {
+   const url = 'http://localhost:8801/vnf/user/register'
+
+   const body = {
+     "userId":uid,
+     "firstName":firstName,
+     "lastName":lastName,
+     "phone":phone,
+     "address":address,
+     "email":newemail,
+     "zipcode":zipcode,
+     "password":newpassword
+   }
+
+   axios.post(url , body )
+   .then((response) => {
+       
+   console.log(response.status,'Posted data')
+   if(response.status === 201){
+    ToastsStore.success( 'Successfully Created User : Status 201')
+   }
+   else return ToastsStore.success( 'Unable to create user')
+   })
+   .catch(error=>{
+          console.log("Error",error)
+   })
  }
 
   return (
@@ -141,9 +183,9 @@ export default function RecipeReviewCard() {
       </div>
       :
       <div>
-         <Card className={classes.root} style={{height:'600px',width:'345px',marginTop:'-644px',marginLeft:'672px',position:'absolute'}}>
+         <Card className={classes.root} style={{height:'617px',width:'345px',marginTop:'-697px',marginLeft:'672px',position:'absolute'}}>
 
-        <div style={{marginTop:'35px',marginBottom:'20px'}}>
+        <div style={{marginTop:'11px',marginBottom:'20px'}}>
           <text style={{fontFamily: 'sans-serif',fontSize:'30px'}}>Create User</text>
         </div>
         <CardHeader/>
@@ -162,9 +204,15 @@ export default function RecipeReviewCard() {
         <div style={{marginTop:'10px'}}>
         <TextField type='password' id="outlined-basic" label="Password" variant="outlined" onChange={e => setNewPw(e)} />
       </div>
+      <div style={{marginTop:'10px'}}>
+        <TextField type='address' id="outlined-basic" label="Address" variant="outlined" onChange={e => setAdrs(e)} />
+      </div>
+      <div style={{marginTop:'10px'}}>
+        <TextField type='zipcode' id="outlined-basic" label="Zipcode" variant="outlined" onChange={e => setZip(e)} />
+      </div>
      
       <div style={{marginTop:'30px'}}>
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" onClick={uploadData}>
             Create
         </Button>
       </div>
@@ -176,7 +224,7 @@ export default function RecipeReviewCard() {
       </div>
         
     }
-    
+       <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.TOP_CENTER} lightBackground/>
       </div>
   );
 }
