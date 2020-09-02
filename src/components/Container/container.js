@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -8,6 +8,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import './container.css'
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -26,6 +27,20 @@ export default function SimpleContainer() {
   const handleChange = (event) => {
     setAge(event.target.value);
   };
+
+  useEffect( () => {
+    const url = 'http://localhost:8094/vnf/home/locations'
+    axios.get(url)
+    .then((response) => {
+      console.log(response.status,'Locations')
+
+    }).catch(error=>{
+      console.log("Error here",error)
+})
+  })
+
+  
+  
 
   return (
     <React.Fragment>
